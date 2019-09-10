@@ -1,0 +1,87 @@
+﻿<views:MvxWindowsPage
+    xmlns:views="using:MvvmCross.Platforms.Uap.Views"
+    x:Class="TheGuardianWebAPI.Views.HomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <views:MvxWindowsPage.Resources>
+        <DataTemplate x:Key="ItemTemplate">
+            <StackPanel Width="400px" Loaded="StackPanel_Loaded">
+                <TextBlock x:Name="Title" TextWrapping="Wrap" Text="{Binding WebTitle}" FontSize="18" FontWeight="Bold"/>
+                <Image x:Name="Image" Source="{Binding StoryHeaderAdditionalFields.Thumbnail}" />
+                <TextBlock x:Name="trailText" TextWrapping="Wrap" Text="{Binding StoryHeaderAdditionalFields.TrailTextString}"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Published By: " FontSize="12" FontWeight="Bold"/>
+                    <TextBlock x:Name="byline" Text="{Binding StoryHeaderAdditionalFields.BylineString}" FontSize="12"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Publishing Time: " FontSize="12" FontWeight="Bold" />
+                    <TextBlock x:Name="publishDate" Text="{Binding WebPublicationDate}" FontSize="12" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Last Updated: " FontSize="12" FontWeight="Bold" />
+                    <TextBlock x:Name="lastUpdated" Text="{Binding StoryHeaderAdditionalFields.LastModified}" FontSize="12" />
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </views:MvxWindowsPage.Resources>
+
+    <SplitView x:Name="Split" DisplayMode="CompactOverlay" IsPaneOpen="false" CompactPaneLength="50" OpenPaneLength="150">
+    <SplitView.Pane>
+        <StackPanel>
+                <Button x:Name="PaneButton" FontFamily="Segoe MDL2 Assets" Content="&#xE700;" 
+                        Width="50" Height="50" Background="Transparent" Click="PaneButton_Click"/>
+            <StackPanel Orientation="Horizontal">
+                    <Button x:Name="HomeButton" FontFamily="Segoe MDL2 Assets" Content="&#xE80F;"
+                   Width="50" Height="50" Background="Transparent" Command="{Binding ChangeSectionCommand}"/>
+                <TextBlock Text="Home" FontSize="14" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="BusinessButton" FontFamily="Segoe MDL2 Assets" Content="&#xE825;"
+                   Width="50" Height="50" Background="Transparent" Command="{Binding ChangeSectionCommand}" CommandParameter="business"/>
+                <TextBlock Text="Business" FontSize="14" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="SportButton" FontFamily="Segoe MDL2 Assets" Content="&#xE805;"
+                   Width="50" Height="50" Background="Transparent" Command="{Binding ChangeSectionCommand}" CommandParameter="sport"/>
+                <TextBlock Text="Sport" FontSize="14" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="TechButton" FontFamily="Segoe MDL2 Assets" Content="&#xE770;"
+                   Width="50" Height="50" Background="Transparent" Command="{Binding ChangeSectionCommand}" CommandParameter="technology"/>
+                <TextBlock Text="Tech" FontSize="14" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="WorldButton" FontFamily="Segoe MDL2 Assets" Content="&#xE909;"
+                   Width="50" Height="50" Background="Transparent" Command="{Binding ChangeSectionCommand}" CommandParameter="world"/>
+                <TextBlock Text="World" FontSize="14" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="LifestyleButton" FontFamily="Segoe MDL2 Assets" Content="&#xED55;"
+                   Width="50" Height="50" Background="Transparent" Command="{Binding ChangeSectionCommand}" CommandParameter="lifeandstyle"/>
+                <TextBlock Text="Lifestyle" FontSize="14" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="TravelButton" FontFamily="Segoe MDL2 Assets" Content="&#xE709;"
+                   Width="50" Height="50" Background="Transparent" Command="{Binding ChangeSectionCommand}" CommandParameter="travel"/>
+                <TextBlock Text="Travel" FontSize="14" VerticalAlignment="Center" />
+            </StackPanel>
+        </StackPanel>
+    </SplitView.Pane>
+    <SplitView.Content>
+        <ScrollViewer>
+            <Grid>
+                <StackPanel>
+                    <ListView
+                x:Name="storyList"  
+                ItemsSource="{Binding Stories}"
+                ItemTemplate="{StaticResource ItemTemplate}"
+                SelectedItem="{Binding SelectedItem,Mode=TwoWay}"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </SplitView.Content>
+    </SplitView>
+</views:MvxWindowsPage>
